@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Header from "./Header";
+import NavigationBar from "./NavigationBar";
+import OrdersList from "./OrdersList";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+    }
+    render () {
+        return (
+            <div className="container" >
+                <Header/>
+                <NavigationBar/>
+                {/*<Route exact path="/" component={}/>*/}
+                 <Route path="/orders" component={OrdersList}/>
+            </div>
+        );
+    }
 }
 
 export default App;
