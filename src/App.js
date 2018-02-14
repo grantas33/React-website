@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Header from "./Header";
 import NavigationBar from "./NavigationBar";
 import OrdersList from "./OrdersList";
+import MediaContent from "./MediaContent";
 
 class App extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class App extends React.Component {
             <div className="container" >
                 <Header/>
                 <NavigationBar/>
-                {/*<Route exact path="/" component={}/>*/}
+                 <Route exact path="/" component={MediaContent}/>
                  <Route path="/orders" component={OrdersList}/>
             </div>
         );
