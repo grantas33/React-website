@@ -2,13 +2,11 @@ import React from 'react';
 
 export default (props) => {
 
-        return (
-            <div>
-                <li className="list-group-item">
-                    {props.title}
-                    {props.username}
-                    {props.type}
-                </li>
-            </div>
-        )
+    return <tr>
+        <th scope="row">{props.id}</th>
+        <td>{props.title}</td>
+        <td>{props.username}</td>
+        <td>{props.type ? 'Road' : 'Mountain'}</td>
+    </tr>
+
 };
