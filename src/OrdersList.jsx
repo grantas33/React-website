@@ -8,11 +8,14 @@ class OrdersList extends React.Component {
 
         this.state = {
             pageNumber: 1,
-            pageActiveClass: [],
-            searchInput: ''
+            searchInput: '',
+            ordersPerPage: 10
         }
 
         this.handlePageClick = this.handlePageClick.bind(this)
+        this.handlePageDirection = this.handlePageDirection.bind(this)
+        this.handleInput = this.handleInput.bind(this)
+        this.handleOrdersPerPage = this.handleOrdersPerPage.bind(this)
 
     }
 
@@ -20,12 +23,9 @@ class OrdersList extends React.Component {
         this.setState({
             pageNumber: e,
                       })
-
-
     }
 
     handlePageDirection(e){
-
         this.setState({
             pageNumber: e ? this.state.pageNumber+1 : this.state.pageNumber-1
                       })
@@ -35,6 +35,13 @@ class OrdersList extends React.Component {
         this.setState({
             pageNumber: 1,
             searchInput: e.target.value
+                      })
+    }
+
+    handleOrdersPerPage(e){
+        this.setState({
+            pageNumber: 1,
+            ordersPerPage: e
                       })
     }
 
@@ -50,20 +57,32 @@ class OrdersList extends React.Component {
             />
         });
 
-        let pageCount = Math.ceil(filteredOrders.length / 3);
+        let pageCount = Math.ceil(filteredOrders.length / this.state.ordersPerPage);
         let pages = [];
         for (let i = 1; i <= pageCount; i++) {
                 pages.push(
                     <li
                         key={i}
                         className={this.state.pageNumber === i ? 'active' : ''}>
-                        <a
-                            href={"#" + i}
-                            onClick={() => this.handlePageClick(i)}>
+                        <a onClick={() => this.handlePageClick(i)}>
                             {i}
                         </a>
                     </li>
                 )
+        }
+
+        let ordersPerPage = [5, 10, 20];
+        let ordersPerPageButtons = [];
+        for (let i = 0; i < ordersPerPage.length; i++) {
+            ordersPerPageButtons.push(
+                <button type="button"
+                        key={i}
+                        className={this.state.ordersPerPage === ordersPerPage[i]
+                            ? "btn btn-default navbar-btn active" : "btn btn-default navbar-btn"}
+                        onClick={() => this.handleOrdersPerPage(
+                            ordersPerPage[i])}>{ordersPerPage[i]}
+                </button>
+            )
         }
 
         return <div>
@@ -71,43 +90,50 @@ class OrdersList extends React.Component {
                 <div className="container-fluid">
                     <form className="navbar-form navbar-left" role="search">
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="Search"
+                            <input type="text" className="form-control" placeholder="Search by the buyer"
                                    onChange={e => this.handleInput(e)}/>
                         </div>
                     </form>
-                    <p class="navbar-text">Show orders per page: </p>
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-default navbar-btn active">5</button>
-                        <button type="button" class="btn btn-default navbar-btn">10</button>
-                        <button type="button" class="btn btn-default navbar-btn">20</button>
+                    <div className="container-fluid navbar-right">
+                        <p className="navbar-text">Show orders per page: </p>
+                        <div className="btn-group" role="group" aria-label="...">
+                            {ordersPerPageButtons}
+                        </div>
                     </div>
                 </div>
             </nav>
             <div>
-                <table className="table table-striped" style={{tableLayout: 'fixed'}}>
-                    <thead>
-                    <tr>
-                        <th>Order Id</th>
-                        <th>Bicycle</th>
-                        <th>Buyer</th>
-                        <th>Bicycle type</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {orderItemList.filter(ord => ord.key <= (this.state.pageNumber*3 - 1) && ord.key >= (this.state.pageNumber-1)*3)}
-                    </tbody>
-                </table>
+                {filteredOrders.length !== 0 ?
+                 <table className="table table-striped" style={{tableLayout: 'fixed'}}>
+                     <thead>
+                     <tr>
+                         <th>Order Id</th>
+                         <th>Bicycle</th>
+                         <th>Buyer</th>
+                         <th>Bicycle type</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     {orderItemList.filter(
+                         ord => ord.key <= (this.state.pageNumber * this.state.ordersPerPage - 1)
+                                && ord.key >= (this.state.pageNumber - 1)
+                                * this.state.ordersPerPage)}
+                     </tbody>
+                 </table> : <h3 className='empty-list'>
+                     Nothing found that matches '{this.state.searchInput}'</h3>}
             </div>
             <nav aria-label="Page navigation">
                 <ul className="pagination">
                     <li className={this.state.pageNumber === 1 ? 'disabled' : ''}>
-                        <a href="#" onClick={this.state.pageNumber === 1 ? ()=>{} : () => this.handlePageDirection(0)} aria-label="Previous">
+                        <a onClick={this.state.pageNumber === 1 ?
+                                             ()=>{} : () => this.handlePageDirection(0)} aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     {pages}
-                    <li className={this.state.pageNumber === pageCount ? 'disabled' : ''}>
-                        <a href="#" onClick={this.state.pageNumber === pageCount ? ()=>{} : () => this.handlePageDirection(1)} aria-label="Next">
+                    <li className={(this.state.pageNumber === pageCount || pageCount === 0) ? 'disabled' : ''}>
+                        <a onClick={this.state.pageNumber === pageCount ?
+                                             ()=>{} : () => this.handlePageDirection(1)} aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

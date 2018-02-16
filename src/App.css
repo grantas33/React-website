@@ -28,11 +28,21 @@
 /*}*/
 
 .bg-img {
-  background: url('images/cycling_backg.jpg') no-repeat center;
+  background: url('images/bg2.jpg') no-repeat center;
   background-size: 100% auto;
 }
 
 .bicycle-thumb {
   height: 200px;
   overflow: hidden
+}
+
+a:hover {
+  cursor:pointer;
+}
+
+.empty-list {
+  text-align: center;
+  padding: 10%;
+  color: darkgray;
 }
