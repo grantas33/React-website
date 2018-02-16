@@ -2,6 +2,8 @@ import React from 'react';
 import road_bike_1 from './images/road_bike_1.jpg'
 import bicycleData from './data/bicycle_data'
 import Thumbnail from "./Thumbnail";
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 class MediaContent extends React.Component {
     constructor(props) {
@@ -51,6 +53,20 @@ class MediaContent extends React.Component {
             ))
         }
 
+        let bicycleRows = Math.ceil(bicycleList.length/3);
+        let rowContent = [];
+        for(let i=0; i<bicycleRows; i++){
+            rowContent.push( <div className='row' key={i}>
+                    <CSSTransitionGroup
+                        transitionName='fade'
+                        transitionEnterTimeout={0}
+                        transitionLeaveTimeout={0}
+                    >
+                        {bicycleList.slice(i*3, (i+1)*3)}
+                    </CSSTransitionGroup>
+                </div>
+            )
+        }
         return <div>
             <nav className="navbar navbar-default">
                 <div className="container-fluid">
@@ -86,9 +102,8 @@ class MediaContent extends React.Component {
                     </div>
                 </div>
             </nav>
-            {bicycleList.length !== 0 ? <div className="row">
-                {bicycleList}
-            </div> : <h3 className='empty-list'>
+            {bicycleList.length !== 0 ? <div className='container-fluid'>{rowContent}</div> :
+             <h3 className='empty-list'>
                  Nothing found that matches '{this.state.searchInput}'</h3>}
         </div>
 

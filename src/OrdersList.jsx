@@ -123,21 +123,24 @@ class OrdersList extends React.Component {
                      Nothing found that matches '{this.state.searchInput}'</h3>}
             </div>
             <nav aria-label="Page navigation">
-                <ul className="pagination">
-                    <li className={this.state.pageNumber === 1 ? 'disabled' : ''}>
-                        <a onClick={this.state.pageNumber === 1 ?
-                                             ()=>{} : () => this.handlePageDirection(0)} aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {pages}
-                    <li className={(this.state.pageNumber === pageCount || pageCount === 0) ? 'disabled' : ''}>
-                        <a onClick={this.state.pageNumber === pageCount ?
-                                             ()=>{} : () => this.handlePageDirection(1)} aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
+                <div className='text-center'>
+                    <ul className="pagination pagination-lg">
+                        <li className={this.state.pageNumber === 1 ? 'disabled' : ''}>
+                            <a onClick={this.state.pageNumber === 1 ? () => {
+                            } : () => this.handlePageDirection(0)} aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {pages}
+                        <li className={(this.state.pageNumber === pageCount || pageCount === 0)
+                            ? 'disabled' : ''}>
+                            <a onClick={this.state.pageNumber === pageCount ? () => {
+                            } : () => this.handlePageDirection(1)} aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
     }

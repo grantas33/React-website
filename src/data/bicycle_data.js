@@ -9,7 +9,7 @@ export default [
     {
         id: 0,
         title: 'Madman Tri-Series',
-        description: "Triathlon screams that you're fit, but fit is not enough. To be the first, you've got to have the best equipment. It is where this beast comes in. Priceless.",
+        description: "You've got all the top triathlon gear, but that itch still remains unscratched. It is where this beast comes in. Prepare to mortgage your house.",
         image: road_bike_3,
         type: 1
     },
@@ -30,14 +30,14 @@ export default [
     {
         id: 3,
         title: 'Mudslapper',
-        description: "Back in the days when fat bikes didn't have a category of their own, this wheeler was already riding the same surfaces a modern fat bike could ride. Old but gold.",
+        description: "Back in the days when fat bikes didn't have a category of their own, this wheeler was already riding the snow and the sand. Old but gold.",
         image: mountain_bike_1,
         type: 0
     },
     {
         id: 4,
         title: 'Forester',
-        description: "Rigid build and robust suspension comes with a price of a heavy frame, but you'll have a bike that will last for ages. Made for offroad trails",
+        description: "Rigid build and robust suspension comes with a price of a heavy frame, but you'll have a bike that will last for ages. Made for offroad trails.",
         image: mountain_bike_2,
         type: 0
     },
