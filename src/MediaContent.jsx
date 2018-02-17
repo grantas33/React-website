@@ -4,6 +4,9 @@ import bicycleData from './data/bicycle_data'
 import Thumbnail from "./Thumbnail";
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from './actions';
 
 class MediaContent extends React.Component {
     constructor(props) {
@@ -14,6 +17,10 @@ class MediaContent extends React.Component {
         }
         this.handleInput = this.handleInput.bind(this)
         this.handleFilter = this.handleFilter.bind(this)
+    }
+
+    componentDidMount(){
+        this.props.setCurrentTab(0);
     }
 
     handleInput(e){
@@ -111,4 +118,6 @@ class MediaContent extends React.Component {
     }
 }
 
-export default MediaContent;
+const mapDispatchToProps = (dispatch) => bindActionCreators(actionCreators, dispatch);
+
+export default connect(null, mapDispatchToProps)(MediaContent);

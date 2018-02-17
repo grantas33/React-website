@@ -1,6 +1,9 @@
 import React from 'react';
 import allOrders from './data/orders';
 import OrderItem from "./OrderItem";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from './actions';
 
 class OrdersList extends React.Component {
     constructor(props) {
@@ -17,6 +20,10 @@ class OrdersList extends React.Component {
         this.handleInput = this.handleInput.bind(this)
         this.handleOrdersPerPage = this.handleOrdersPerPage.bind(this)
 
+    }
+
+    componentDidMount(){
+        this.props.setCurrentTab(1);
     }
 
     handlePageClick(e){
@@ -122,6 +129,7 @@ class OrdersList extends React.Component {
                  </table> : <h3 className='empty-list'>
                      Nothing found that matches '{this.state.searchInput}'</h3>}
             </div>
+            {pageCount !== 0 ?
             <nav aria-label="Page navigation">
                 <div className='text-center'>
                     <ul className="pagination pagination-lg">
@@ -132,7 +140,7 @@ class OrdersList extends React.Component {
                             </a>
                         </li>
                         {pages}
-                        <li className={(this.state.pageNumber === pageCount || pageCount === 0)
+                        <li className={(this.state.pageNumber === pageCount)
                             ? 'disabled' : ''}>
                             <a onClick={this.state.pageNumber === pageCount ? () => {
                             } : () => this.handlePageDirection(1)} aria-label="Next">
@@ -141,10 +149,12 @@ class OrdersList extends React.Component {
                         </li>
                     </ul>
                 </div>
-            </nav>
+            </nav> : ''}
         </div>
     }
 
 }
 
-export default OrdersList;
+const mapDispatchToProps = (dispatch) => bindActionCreators(actionCreators, dispatch);
+
+export default connect(null, mapDispatchToProps)(OrdersList);
