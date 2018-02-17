@@ -12,8 +12,8 @@ class App extends React.Component {
             <div className="container" >
                 <Header/>
                 <NavigationBar/>
-                 <Route exact path="/" component={MediaContent}/>
-                 <Route path="/orders" component={OrdersList}/>
+                 <Route exact path={process.env.PUBLIC_URL + "/"} component={MediaContent}/>
+                 <Route path={process.env.PUBLIC_URL + "/orders"} component={OrdersList}/>
             </div>
         );
     }
