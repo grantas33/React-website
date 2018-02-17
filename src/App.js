@@ -12,8 +12,8 @@ class App extends React.Component {
             <div className="container" >
                 <Header/>
                 <NavigationBar/>
-                 <Route exact path="/" component={MediaContent}/>
-                 <Route path="/orders" component={OrdersList}/>
+                 <Route exact path={'/'} component={MediaContent}/>
+                 <Route path={'/orders'} component={OrdersList}/>
             </div>
         );
     }
