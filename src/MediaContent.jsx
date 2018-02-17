@@ -1,22 +1,23 @@
 import React from 'react';
-import road_bike_1 from './images/road_bike_1.jpg'
 import bicycleData from './data/bicycle_data'
 import Thumbnail from "./Thumbnail";
-import TransitionGroup from 'react-transition-group/TransitionGroup';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from './actions';
+import Modal from "./Modal";
 
 class MediaContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             searchInput : '',
-            filter: 'All bikes'
+            filter: 'All bikes',
+            modalImg: ''
         }
         this.handleInput = this.handleInput.bind(this)
         this.handleFilter = this.handleFilter.bind(this)
+        this.handleModal = this.handleModal.bind(this)
     }
 
     componentDidMount(){
@@ -35,6 +36,12 @@ class MediaContent extends React.Component {
                       })
     }
 
+    handleModal(img){
+        this.setState({
+            modalImg: img
+                      })
+    }
+
 
     render () {
         let bicycleList = bicycleData.map((bike, index) => {
@@ -44,6 +51,7 @@ class MediaContent extends React.Component {
                 description={bike.description}
                 image={bike.image}
                 type={bike.type}
+                onClick={()=>{this.handleModal(bike.image)}}
             />
         });
 
@@ -77,6 +85,8 @@ class MediaContent extends React.Component {
         return <div>
             <nav className="navbar navbar-default">
                 <div className="container-fluid">
+
+                    <Modal modalImg={this.state.modalImg}/>
 
                     <form className="navbar-form navbar-left" role="search">
                         <div className="form-group">

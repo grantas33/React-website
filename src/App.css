@@ -68,3 +68,8 @@ a:hover {
 html {
   overflow-y: scroll;
 }
+
+.modal-img {
+     height: auto;
+     width: 100%
+}

@@ -6,10 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import * as actionCreators from './actions';
 
-class Header extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+class NavigationBar extends React.Component {
 
 
     render() {
@@ -32,4 +29,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actionCreators, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);
